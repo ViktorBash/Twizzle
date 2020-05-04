@@ -1,4 +1,19 @@
 {% extends "todoboard/base.html" %}
 {% block content %}
-    <h1>Testing v2</h1>
+
+    <div class="container">
+        <h3>Your Boards</h3>
+    <div class = "row shadow-sm">
+        <div class="col">
+            <h2>Title</h2>
+        </div>
+        <div class="col">
+            <form>
+                <button type="submit" class="btn btn-danger float-right">Delete</button>
+            </form>
+
+        </div>
+    </div>
+    </div>
+
 {% endblock content %}
