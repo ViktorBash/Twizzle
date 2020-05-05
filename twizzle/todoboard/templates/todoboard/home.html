@@ -2,32 +2,58 @@
 {% block content %}
 
     {% if user.is_authenticated %}
-    <div class="container">
-    <div class = "row shadow-sm">
-        <div class="col">
-            <h2>Create A Board</h2>
-        </div>
-        <div class="col">
-            <form>
-                <input class="form-control" type="text" placeholder="Title">
+        <div class="container">
+            <div class="row shadow-sm">
+                <div class="col">
+                    <h2>Create A Board</h2>
+                </div>
+                <div class="col">
+                    <form>
+                        <input class="form-control" type="text" placeholder="Title">
 
-                <button type="submit" class="btn btn-success float-right">Create</button>
-            </form>
+                        <button type="submit" class="btn btn-success float-right">Create</button>
+                    </form>
 
-        </div>
-    </div>
-        <h3>Your Boards</h3>
-    <div class = "row shadow-sm">
-        <div class="col">
-            <h2>Title</h2>
-        </div>
-        <div class="col">
-            <form>
-                <button type="submit" class="btn btn-danger float-right">Delete</button>
-            </form>
+                </div>
+            </div>
+            <h3>Your Boards</h3>
+        <!--
+            <div class="row shadow-sm">
+                <div class="col">
+                    <h2>Title</h2>
+                </div>
+                <div class="col">
+                    <form>
+                        <button type="submit" class="btn btn-danger float-right">Delete</button>
+                    </form>
 
+                </div>
+
+            </div> -->
+        {% for board in boards %}
+            <div class="row shadow-sm">
+                <div class="col">
+                    <h2>{{ board.title }}</h2>
+                </div>
+                <div class="col">
+                    <form>
+                        <button type="submit" class="btn btn-danger float-right">Delete</button>
+                    </form>
+                    <form style="float:left;">
+                        <button type="submit" class="btn btn-success float-right">Open</button>
+                    </form>
+
+                </div>
+
+            </div>
+        {% endfor %}
         </div>
-    </div>
-    </div>
-{% endif %}
+    {% else %}
+        <li>
+            <a class="nav-link" href="{% url 'login' %}">Login <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'register' %}">Register <span class="sr-only">(current)</span></a>
+        </li>
+    {% endif %}
 {% endblock content %}
