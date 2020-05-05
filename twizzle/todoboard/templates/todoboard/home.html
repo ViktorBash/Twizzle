@@ -1,7 +1,21 @@
 {% extends "todoboard/base.html" %}
 {% block content %}
 
+    {% if user.is_authenticated %}
     <div class="container">
+    <div class = "row shadow-sm">
+        <div class="col">
+            <h2>Create A Board</h2>
+        </div>
+        <div class="col">
+            <form>
+                <input class="form-control" type="text" placeholder="Title">
+
+                <button type="submit" class="btn btn-success float-right">Create</button>
+            </form>
+
+        </div>
+    </div>
         <h3>Your Boards</h3>
     <div class = "row shadow-sm">
         <div class="col">
@@ -15,5 +29,5 @@
         </div>
     </div>
     </div>
-
+{% endif %}
 {% endblock content %}
