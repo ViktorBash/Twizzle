@@ -120,6 +120,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'  # To make our forms look nice
+
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = 'todoboard-home'
@@ -130,5 +132,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = str(os.environ.get('GMAIL_USER'))
-EMAIL_HOST_PASSWORD = str(os.environ.get('GMAIL_PASS'))
+EMAIL_HOST_USER = "twizzle.service@gmail.com"
+EMAIL_HOST_PASSWORD = str(os.environ.get('TWIZZLE_GMAIL_PASS'))
