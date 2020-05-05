@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'todoboard.apps.TodoboardConfig',
     'users.apps.UsersConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +121,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = 'todoboard-home'
+LOGIN_URL = 'login'
+
+# For sending emails (mainly for password resets). EMAIL_HOST_USER and EMAIL_HOST_PASSWORD is for the email we use.
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = str(os.environ.get('GMAIL_USER'))
+EMAIL_HOST_PASSWORD = str(os.environ.get('GMAIL_PASS'))
