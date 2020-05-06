@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "todoboard/base.html" %}
+{% block content %}
+    <div class="container">
+        <h2>{{ boards.title }}</h2>
+    {% for item in items %}
+            <div class="row shadow-sm">
+                <div class="col">
+                    <h2>{{ item.title }}</h2>
+                    <p>{{ item.content }}</p>
+                </div>
+                <div class="col">
+                    <form>
+                        <button type="submit" class="btn btn-danger float-right">Delete</button>
+                    </form>
+                     <a href="#">Open</a>
 
-</body>
-</html>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock content %}

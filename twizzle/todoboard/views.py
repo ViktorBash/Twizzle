@@ -41,3 +41,20 @@ class HomeView(ListView, UserPassesTestMixin):
     #     user = get_object_or_404(User, username=self.kwargs.get('username'))
     #     return Board.objects.filter(author=user).order_by('-date_posted')
 
+class BoardDetail(DetailView, UserPassesTestMixin):
+    model = Board
+    template_name = "todoboard/board_detail.html"
+    context_object_name = "boards"
+
+    def test_func(self):
+        board = self.get_object()
+        if self.request.user == board.author:
+            return True
+        return False
+
+    def get_context_data(self, **kwargs):
+        specific_board = self.get_object()
+        context = super(BoardDetail, self).get_context_data(**kwargs)
+        context['items'] = Items.objects.filter(board=specific_board)
+        # print(context)
+        return context
