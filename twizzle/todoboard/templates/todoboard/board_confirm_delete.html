@@ -1,0 +1,12 @@
+{% extends "todoboard/base.html" %}
+{% block content %}
+<div class="container">
+<form method="POST">
+    {% csrf_token %}
+    <legend>Delete Board</legend>
+    <h2>Are you sure you want to delete the post "{{ object.title }}"</h2>
+    <button class="btn btn-outline danger" type="submit">Yes, Delete</button>
+    <a class="btn btn-outline secondary" href="{% url 'board-detail' object.id %}">Cancel</a>
+</form>
+</div>
+{% endblock content %}

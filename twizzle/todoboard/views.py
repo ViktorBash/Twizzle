@@ -80,3 +80,17 @@ def create_item(request, pk):
     # return HttpResponseRedirect("")
     return_link = "/board/" + str(pk) + "/"
     return redirect(return_link)
+
+class BoardDelete(LoginRequiredMixin, DeleteView, UserPassesTestMixin):
+    model = Board
+    success_url = "/"
+    print("Delete")
+
+    def test_func(self):
+        board = self.get_object()
+        if self.request.user == board.author:
+            return True
+        return False
+
+
+

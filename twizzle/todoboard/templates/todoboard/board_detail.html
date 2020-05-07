@@ -3,6 +3,10 @@
     <div class="container">
         {% if boards.author == user %}
             <h2>{{ boards.title }}</h2>
+            <h2>Delete this board</h2>
+            <form>
+             <a href="{% url 'board-delete' boards.id %}">Delete</a>
+            </form>
             <br>
             <form action="create-item/" method="post">
                 {% csrf_token %}

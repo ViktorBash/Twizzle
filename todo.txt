@@ -1,5 +1,3 @@
 ToDo:
 
 - Delete a board
-- delete an item
-- Update an item

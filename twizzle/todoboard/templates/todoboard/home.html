@@ -38,7 +38,7 @@
                 </div>
                 <div class="col">
                     <form>
-                        <button type="submit" class="btn btn-danger float-right">Delete</button>
+                        <a href="{% url 'board-delete' board.id %}">Delete</a>
                     </form>
                      <a href="{% url 'board-detail' board.id %}">Open</a>
 
