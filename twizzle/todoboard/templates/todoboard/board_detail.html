@@ -1,23 +1,32 @@
 {% extends "todoboard/base.html" %}
 {% block content %}
     <div class="container">
-        <h2>{{ boards.title }}</h2>
-    {% for item in items %}
-            <div class="row shadow-sm">
-                <div class="col">
-                    <h2>{{ item.title }}</h2>
-                    <p>{{ item.content }}</p>
-                </div>
-                <div class="col">
-                    <form>
-                        <button type="submit" class="btn btn-danger float-right">Delete</button>
-                    </form>
-                     <a href="#">Open</a>
+        {% if boards.author == user %}
+            <h2>{{ boards.title }}</h2>
+            {% for item in items %}
+                <div class="row shadow-sm">
+                    <div class="col">
+                        <h2>{{ item.title }}</h2>
+                        <p>{{ item.content }}</p>
+                    </div>
+                    <div class="col">
+                        <form>
+                            <button type="submit" class="btn btn-danger float-right">Delete</button>
+                        </form>
+                        <a href="#">Open</a>
+
+                    </div>
 
                 </div>
-
+            {% endfor %}
             </div>
-        {% endfor %}
-    </div>
+
+        {% else %}
+            <div class="container">
+            <h3>Looks like you're not the owner of this board, get to the <a class="nav-link"
+                                                                             href="{% url 'login' %}">login
+                page </a> to access your boards.</h3>
+            </div>
+        {% endif %}
 
 {% endblock content %}

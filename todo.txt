@@ -1,0 +1,6 @@
+ToDo:
+
+- Make authentication, only creator can view their own board
+- Delete a board
+- delete an item
+- Update an item
