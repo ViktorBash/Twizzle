@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Board, Items
 from django.views.generic import (ListView,
                                   DetailView,
@@ -8,7 +8,7 @@ from django.views.generic import (ListView,
                                   )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 # Create your views here.
 def home(request):
@@ -71,3 +71,12 @@ def create_board(request):
     created_board = Board.objects.create(title=title, author=request.user)
 
     return HttpResponseRedirect("/")
+
+def create_item(request, pk):
+    title = request.POST['title']
+    content = request.POST['content']
+
+    created_item = Items.objects.create(title=title, author=request.user, board_id=pk, content=content)
+    # return HttpResponseRedirect("")
+    return_link = "/board/" + str(pk) + "/"
+    return redirect(return_link)

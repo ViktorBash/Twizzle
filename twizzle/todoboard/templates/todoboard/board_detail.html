@@ -3,6 +3,18 @@
     <div class="container">
         {% if boards.author == user %}
             <h2>{{ boards.title }}</h2>
+            <br>
+            <form action="create-item/" method="post">
+                {% csrf_token %}
+                <h2>Create an item</h2>
+                <input class="form-control" type="text" placeholder="Title" name="title">
+                <label for="exampleFormControlTextarea1">Content (optional)</label>
+                <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+
+                <button type="submit" class="btn btn-success float-right">Create</button>
+            </form>
+            <br>
+
             {% for item in items %}
                 <div class="row shadow-sm">
                     <div class="col">
@@ -10,7 +22,7 @@
                         <p>{{ item.content }}</p>
                     </div>
                     <div class="col">
-                        <form action="delete-item/{{ item.id }}/" method="post" >
+                        <form action="delete-item/{{ item.id }}/" method="post">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger float-right">Delete Item</button>
                         </form>
@@ -24,9 +36,9 @@
 
         {% else %}
             <div class="container">
-            <h3>Looks like you're not the owner of this board, get to the <a class="nav-link"
-                                                                             href="{% url 'login' %}">login
-                page </a> to access your boards.</h3>
+                <h3>Looks like you're not the owner of this board, get to the <a class="nav-link"
+                                                                                 href="{% url 'login' %}">login
+                    page </a> to access your boards.</h3>
             </div>
         {% endif %}
 
