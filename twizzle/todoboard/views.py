@@ -63,3 +63,11 @@ class BoardDetail(DetailView, UserPassesTestMixin):
 def delete_item(request, pk, itempk):
     Items.objects.get(pk=itempk).delete()
     return HttpResponseRedirect("/")
+
+
+def create_board(request):
+    title = request.POST['title']
+
+    created_board = Board.objects.create(title=title, author=request.user)
+
+    return HttpResponseRedirect("/")

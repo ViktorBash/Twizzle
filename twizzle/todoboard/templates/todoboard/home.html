@@ -8,8 +8,9 @@
                     <h2>Create A Board</h2>
                 </div>
                 <div class="col">
-                    <form>
-                        <input class="form-control" type="text" placeholder="Title">
+                    <form action="create-board/" method="post">
+                        {% csrf_token %}
+                        <input class="form-control" type="text" placeholder="Title" name="title">
 
                         <button type="submit" class="btn btn-success float-right">Create</button>
                     </form>
