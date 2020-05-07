@@ -10,10 +10,11 @@
                         <p>{{ item.content }}</p>
                     </div>
                     <div class="col">
-                        <form>
-                            <button type="submit" class="btn btn-danger float-right">Delete</button>
+                        <form action="delete-item/{{ item.id }}/" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger float-right">Delete Item</button>
                         </form>
-                        <a href="#">Open</a>
+
 
                     </div>
 

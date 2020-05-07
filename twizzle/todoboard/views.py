@@ -58,3 +58,8 @@ class BoardDetail(DetailView, UserPassesTestMixin):
         context['items'] = Items.objects.filter(board=specific_board)
         # print(context)
         return context
+
+
+def delete_item(request, pk, itempk):
+    Items.objects.get(pk=itempk).delete()
+    return HttpResponseRedirect("/")
