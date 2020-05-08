@@ -1,74 +1,34 @@
 {% extends "todoboard/base.html" %}
 {% block content %}
     <div class="container">
+        {% if boards.author == user %} <!-- If owner, show the add user button -->
+            <br>
+            <form action="add-user/" method="post" class="form-inline">
+                {% csrf_token %}
+                <input class="form-control" type="text" placeholder="Username" name="shared_user">
+                <button type="submit" class="btn btn-primary">Add User</button>
+            </form>
+        {% endif %}
+
+
         {% for shared_user in shared_users %}
-            {% if shared_user.shared_author == user or boards.author == user %}
-                <br>
-                <h2>{{ boards.title }}</h2>
-
-                {% if boards.author == user %}
-                    <form action="add-user/" method="post" class="form-inline">
-                        {% csrf_token %}
-                        <input class="form-control" type="text" placeholder="Username" name="shared_user">
-                        <button type="submit" class="btn btn-primary">Add User</button>
-                    </form>
-                {% endif %}
-                <h2>Owner: {{ boards.author }} Email: <a
-                        href="mailto:{{ boards.author.email }}"> {{ boards.author.email }}</a></h2>
-                <h2>Shared Users:</h2>
-                {% for shared_user in shared_users %}
-                    <h4>Username: {{ shared_user.shared_author.username }}, Email: <a
-                            href="mailto:{{ shared_user.shared_author.email }}"> {{ shared_user.shared_author.email }}</a>
-                    </h4>
-                {% endfor %}
-
-                <br>
-                <form action="create-item/" method="post">
-                    {% csrf_token %}
-
-                    <h2>Create an item</h2>
-                    <input class="form-control" type="text" placeholder="Title" name="title">
-                    <label for="exampleFormControlTextarea1">Content (optional)</label>
-                    <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-
-                    <button type="submit" class="btn btn-success float-right">Create</button>
-                </form>
-                <br>
-                <h1>Items:</h1>
-
-                {% for item in items %}
-
-                    <div class="row shadow-sm">
-                        <div class="col">
-
-                            <h2>{{ item.title }}</h2>
-                            <p>{{ item.content }}</p>
-                        </div>
-                        <div class="col">
-                            <form action="delete-item/{{ item.id }}/" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger float-right">Delete Item</button>
-                            </form>
-
-                        </div>
-
-                    </div>
-                {% endfor %}
-                <br>
-                {% if boards.author == user %}
-                    <h6>Delete this board</h6>
-                    <a href="{% url 'board-delete' boards.id %}" class="btn btn-danger" role="button"
-                       aria-pressed="true">Delete</a>
-                {% endif %}
-                </div>
+            {% if shared_user.shared_author == user %} <!-- If shared user, show the board -->
+                {% include 'todoboard/board_detail_block.html' %}
             {% endif %}
         {% endfor %}
-    <div class="container">
+
+        {% if boards.author == user %} <!--If owner, show the board and delete button -->
+            {% include 'todoboard/board_detail_block.html' %}
+            <h6>Delete this board</h6>
+            <a href="{% url 'board-delete' boards.id %}" class="btn btn-danger" role="button"
+               aria-pressed="true">Delete</a>
+            <br>
+        {% endif %}
+
+
         <br>
         <h6>Don't see anything? You may be logged out or denied access to this board, <a
                 href="{% url 'login' %}">login
             page </a> to access your boards.</h6>
     </div>
-
-
 {% endblock content %}

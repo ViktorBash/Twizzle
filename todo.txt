@@ -1,6 +1,10 @@
 ToDo:
 
-- Shared users can see boards they are shared too
--create list of boards you are shared to at bottom
--look into groups for authentication
-- Share content
+- Fix bug where if owner of the board the information is displayed several times
+- Shared users can see boards they are shared too (link it for them somewhere)
+- Add a user via their email
+- Remove a user's access (remove button next to their name)
+
+Advanced:
+- Make a toggle button for the owner of a board when adding a user to either send the user an email or not that they
+got added

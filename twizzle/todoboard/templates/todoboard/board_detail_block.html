@@ -1,0 +1,44 @@
+<br>
+<h2>{{ boards.title }}</h2>
+<h2>Owner: {{ boards.author }} Email: <a
+        href="mailto:{{ boards.author.email }}"> {{ boards.author.email }}</a></h2>
+<h2>Shared Users:</h2>
+{% for shared_user in shared_users %}
+    <h4>Username: {{ shared_user.shared_author.username }}, Email: <a
+            href="mailto:{{ shared_user.shared_author.email }}"> {{ shared_user.shared_author.email }}</a>
+    </h4>
+{% endfor %}
+
+<br>
+<form action="create-item/" method="post">
+    {% csrf_token %}
+
+    <h2>Create an item</h2>
+    <input class="form-control" type="text" placeholder="Title" name="title">
+    <label for="exampleFormControlTextarea1">Content (optional)</label>
+    <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+
+    <button type="submit" class="btn btn-success float-right">Create</button>
+</form>
+<br>
+<h1>Items:</h1>
+
+{% for item in items %}
+
+    <div class="row shadow-sm">
+        <div class="col">
+
+            <h2>{{ item.title }}</h2>
+            <p>{{ item.content }}</p>
+        </div>
+        <div class="col">
+            <form action="delete-item/{{ item.id }}/" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger float-right">Delete Item</button>
+            </form>
+
+        </div>
+
+    </div>
+{% endfor %}
+<br>
