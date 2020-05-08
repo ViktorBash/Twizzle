@@ -5,7 +5,7 @@
             {% csrf_token %}
             <br>
             <h2>Are you sure you want to delete "{{ object.title }}"? It will be deleted <u>permanently.</u></h2>
-            <button type="submit" class="btn btn-danger">Delete Item</button>
+            <button type="submit" class="btn btn-danger">Delete Board</button>
             <a href="{% url 'board-detail' object.id %}" class="btn btn-secondary" role="button" aria-pressed="true">Cancel</a>
 
 

@@ -1,13 +1,33 @@
 {% extends "todoboard/base.html" %}
 {% block content %}
     <div class="container">
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
         {% if boards.author == user %} <!-- If owner, show the add user button -->
-            <br>
-            <form action="add-user/" method="post" class="form-inline">
-                {% csrf_token %}
-                <input class="form-control" type="text" placeholder="Username" name="shared_user">
-                <button type="submit" class="btn btn-primary">Add User</button>
-            </form>
+            <div class="row">
+                <div class="col">
+                    <form action="add-user/" method="post" class="form-inline">
+                        {% csrf_token %}
+                        <input class="form-control" type="text" placeholder="Username" name="shared_user">
+                        <button type="submit" class="btn btn-primary">Add By Username</button>
+                    </form>
+                </div>
+
+                <div class="col">
+                    <form action="add-user-email/" method="post">
+                        {% csrf_token %}
+                        <input class="form-control" type="text" placeholder="Email" name="shared_user_email">
+                        <button type="submit" class="btn btn-primary">Add By Email</button>
+                    </form>
+                </div>
+            </div>
         {% endif %}
 
 

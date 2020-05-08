@@ -10,6 +10,7 @@ urlpatterns = [
     path('board/<int:pk>/delete-item/<int:itempk>/', views.delete_item, name="delete-item"),
     path('create-board/', views.create_board, name="create-board"),
     path('board/<int:pk>/create-item/', views.create_item, name='create-item'),
-    path('board/<int:pk>/add-user/', views.BoardAddUser, name='add-user')
+    path('board/<int:pk>/add-user/', views.BoardAddUser, name='add-user'),
+    path('board/<int:pk>/add-user-email/', views.BoardAddUserEmail, name='add-user-email'),
 
 ]

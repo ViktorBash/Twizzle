@@ -1,7 +1,5 @@
 ToDo:
 
-- Fix bug where if owner of the board the information is displayed several times
-- Shared users can see boards they are shared too (link it for them somewhere)
 - Add a user via their email
 - Remove a user's access (remove button next to their name)
 

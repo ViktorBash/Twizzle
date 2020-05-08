@@ -9,6 +9,8 @@ from django.views.generic import (ListView,
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib import messages
+
 
 # Old home view
 # def home(request):
@@ -20,7 +22,6 @@ class HomeView(ListView, UserPassesTestMixin):
     template_name = "todoboard/home.html"
     context_object_name = "boards"
     ordering = ['-date_posted']
-
 
     def get_queryset(self):
         if self.request.user.is_anonymous:
@@ -93,18 +94,42 @@ class BoardDelete(LoginRequiredMixin, DeleteView, UserPassesTestMixin):
 
 
 def BoardAddUser(request, pk):
+    print("add by username")
     shared_user = request.POST['shared_user']
+
+    # This try/except block is for adding users only if the user exists or is not shared to the board already
     try:
-        print("Ree")
+        # See if the user is an actual user, if not we go to the outer except at the bottom
         user_to_share = User.objects.get(username=shared_user)
-        print("ree 2")
         try:
+            # Try if the user is already shared to the board, if they aren't we go to the inner except
             is_there_user = Shared_User.objects.get(shared_author=user_to_share)
+            messages.info(request, "User already shared to this board")
         except:
+            # We share the user because they exist and they are not already in the board
             created_shared_user = Shared_User.objects.create(board_id=pk, shared_author=user_to_share)
+            messages.info(request, "User added")
     except:
-        pass
+        # This except block is triggered if the person does not exist
+        messages.info(request, "User doesn't exist")
 
     return_link = "/board/" + str(pk) + "/"
     return redirect(return_link)
 
+
+def BoardAddUserEmail(request, pk):
+    print("Add by email")
+    shared_user_email = request.POST['shared_user_email']
+    try:  # Try to get the user
+        user_to_share = User.objects.get(email=shared_user_email)
+        try:  # Try to see if the user is already shared
+            is_there_user = Shared_User.objects.get(shared_author=user_to_share)
+            messages.info(request, "User already shared to this board")
+        except:  # The user is not already shared, so we make them shared
+            created_shared_user = Shared_User.objects.create(board_id=pk, shared_author=user_to_share)
+            messages.info(request, "User added")
+    except:  # Try to get user failed, so user doesn't exist
+        messages.info(request, "User doesn't exist")
+
+    return_link = "/board/" + str(pk) + "/"
+    return redirect(return_link)
