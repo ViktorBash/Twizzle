@@ -7,7 +7,7 @@
                 <h2>{{ boards.title }}</h2>
 
                 {% if boards.author == user %}
-                    <form action="" method="post" class="form-inline">
+                    <form action="add-user/" method="post" class="form-inline">
                         {% csrf_token %}
                         <input class="form-control" type="text" placeholder="Username" name="shared_user">
                         <button type="submit" class="btn btn-primary">Add User</button>

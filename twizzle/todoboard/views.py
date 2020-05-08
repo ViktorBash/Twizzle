@@ -85,7 +85,17 @@ class BoardDelete(LoginRequiredMixin, DeleteView, UserPassesTestMixin):
 
 def BoardAddUser(request, pk):
     shared_user = request.POST['shared_user']
-    created_shared_user = Shared_User.objects.create(board_id=pk, shared_author=shared_user)
+    try:
+        print("Ree")
+        user_to_share = User.objects.get(username=shared_user)
+        print("ree 2")
+        try:
+            is_there_user = Shared_User.objects.get(shared_author=user_to_share)
+        except:
+            created_shared_user = Shared_User.objects.create(board_id=pk, shared_author=user_to_share)
+    except:
+        pass
+
     return_link = "/board/" + str(pk) + "/"
     return redirect(return_link)
 
