@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Board, Items
+from .models import Board, Items, Shared_User
 from django.views.generic import (ListView,
                                   DetailView,
                                   CreateView,
@@ -27,21 +27,24 @@ class HomeView(ListView, UserPassesTestMixin):
         return Board.objects.all().filter(author=self.request.user)
 
 
-class BoardDetail(DetailView, UserPassesTestMixin):
+class BoardDetail(DetailView, LoginRequiredMixin):
     model = Board
     template_name = "todoboard/board_detail.html"
     context_object_name = "boards"
 
-    def test_func(self):
-        board = self.get_object()
-        if self.request.user == board.author:
-            return True
-        return False
+    # def test_func(self):
+    #     board = self.get_object()
+    #     if self.request.user == board.author:
+    #         return True
+    #     return False
 
     def get_context_data(self, **kwargs):
         specific_board = self.get_object()
         context = super(BoardDetail, self).get_context_data(**kwargs)
         context['items'] = Items.objects.filter(board=specific_board)
+        shared_user_info = Shared_User.objects.filter(board=specific_board)
+        context['shared_users'] = shared_user_info
+        # print(context['shared_users'])
         # print(context)
         return context
 
@@ -78,4 +81,11 @@ class BoardDelete(LoginRequiredMixin, DeleteView, UserPassesTestMixin):
         if self.request.user == board.author:
             return True
         return False
+
+
+def BoardAddUser(request, pk):
+    shared_user = request.POST['shared_user']
+    created_shared_user = Shared_User.objects.create(board_id=pk, shared_author=shared_user)
+    return_link = "/board/" + str(pk) + "/"
+    return redirect(return_link)
 

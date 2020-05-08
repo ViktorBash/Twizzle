@@ -1,3 +1,6 @@
 ToDo:
 
+- Shared users can see boards they are shared too
+-create list of boards you are shared to at bottom
+-look into groups for authentication
 - Share content

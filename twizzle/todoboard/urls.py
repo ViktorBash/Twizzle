@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import HomeView, BoardDetail, delete_item, create_board, create_item, BoardDelete
+from .views import HomeView, BoardDetail, delete_item, create_board, create_item, BoardDelete, BoardAddUser
 from . import views
 
 urlpatterns = [
@@ -10,5 +10,6 @@ urlpatterns = [
     path('board/<int:pk>/delete-item/<int:itempk>/', views.delete_item, name="delete-item"),
     path('create-board/', views.create_board, name="create-board"),
     path('board/<int:pk>/create-item/', views.create_item, name='create-item'),
+    path('board/<int:pk>/add-user/', views.BoardAddUser, name='add-user')
 
 ]

@@ -15,3 +15,8 @@ class Items(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField(default="")
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+
+class Shared_User(models.Model):
+    board = models.ForeignKey(Board, on_delete=models.CASCADE)
+    shared_author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
