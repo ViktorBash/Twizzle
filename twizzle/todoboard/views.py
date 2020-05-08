@@ -21,10 +21,19 @@ class HomeView(ListView, UserPassesTestMixin):
     context_object_name = "boards"
     ordering = ['-date_posted']
 
+
     def get_queryset(self):
         if self.request.user.is_anonymous:
             return None
         return Board.objects.all().filter(author=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        if self.request.user.is_anonymous:
+            return None
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context['boards'] = Board.objects.filter(author=self.request.user)
+        context['shared_users'] = Shared_User.objects.filter(shared_author=self.request.user)
+        return context
 
 
 class BoardDetail(DetailView, LoginRequiredMixin):
