@@ -10,9 +10,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 
-# Create your views here.
-def home(request):
-    return render(request, 'todoboard/home.html')
+# Old home view
+# def home(request):
+#     return render(request, 'todoboard/home.html')
 
 
 class HomeView(ListView, UserPassesTestMixin):
@@ -21,25 +21,11 @@ class HomeView(ListView, UserPassesTestMixin):
     context_object_name = "boards"
     ordering = ['-date_posted']
 
-    # def test_func(self):
-    #     board = self.get_object()
-    #     if self.request.user == board.author:
-    #         return True
-    #     return False
-
     def get_queryset(self):
+        if self.request.user.is_anonymous:
+            return None
         return Board.objects.all().filter(author=self.request.user)
 
-    # def get_context_data(self, **kwargs):
-    #     user = get_object_or_404(User, username=self.kwargs.get('username'))
-    #
-    #     context = super(HomeView, self).get_context_data(**kwargs)
-    #     context['board'] = Board.objects.filter(author=user).order_by
-    #     return context
-
-    # def get_queryset(self):
-    #     user = get_object_or_404(User, username=self.kwargs.get('username'))
-    #     return Board.objects.filter(author=user).order_by('-date_posted')
 
 class BoardDetail(DetailView, UserPassesTestMixin):
     model = Board
@@ -69,30 +55,27 @@ def delete_item(request, pk, itempk):
 
 def create_board(request):
     title = request.POST['title']
-
     created_board = Board.objects.create(title=title, author=request.user)
-
     return HttpResponseRedirect("/")
+
 
 def create_item(request, pk):
     title = request.POST['title']
     content = request.POST['content']
 
     created_item = Items.objects.create(title=title, author=request.user, board_id=pk, content=content)
-    # return HttpResponseRedirect("")
+
     return_link = "/board/" + str(pk) + "/"
     return redirect(return_link)
+
 
 class BoardDelete(LoginRequiredMixin, DeleteView, UserPassesTestMixin):
     model = Board
     success_url = "/"
-    print("Delete")
 
     def test_func(self):
         board = self.get_object()
         if self.request.user == board.author:
             return True
         return False
-
-
 

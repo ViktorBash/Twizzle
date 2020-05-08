@@ -3,12 +3,14 @@
 
     {% if user.is_authenticated %}
         <div class="container">
+        <br>
             <div class="row shadow-sm">
-                <div class="col">
+                <div class="col-4">
                     <h2>Create A Board</h2>
                 </div>
-                <div class="col">
-                    <form action="create-board/" method="post">
+                <div class="col-8">
+
+                    <form action="create-board/" method="post" class="form-inline">
                         {% csrf_token %}
                         <input class="form-control" type="text" placeholder="Title" name="title">
 
@@ -17,42 +19,40 @@
 
                 </div>
             </div>
-            <h3>Your Boards</h3>
-        <!--
-            <div class="row shadow-sm">
-                <div class="col">
-                    <h2>Title</h2>
-                </div>
-                <div class="col">
-                    <form>
-                        <button type="submit" class="btn btn-danger float-right">Delete</button>
-                    </form>
-
-                </div>
-
-            </div> -->
+            <br>
+            <h1>Your Boards</h1>
         {% for board in boards %}
             <div class="row shadow-sm">
                 <div class="col">
-                    <h2>{{ board.title }}</h2>
+                    <h3>{{ board.title }}</h3>
                 </div>
                 <div class="col">
-                    <form>
-                        <a href="{% url 'board-delete' board.id %}">Delete</a>
-                    </form>
-                     <a href="{% url 'board-detail' board.id %}">Open</a>
+
+                    <a href="{% url 'board-detail' board.id %}" class="btn btn-success" role="button" aria-pressed="true">Open</a>
 
                 </div>
+                <div class="col">
+
+                </div>
+            <div class="col">
+                <a href="{% url 'board-delete' board.id %}" class="btn btn-danger" role="button" aria-pressed="true" style="float:right;">Delete</a>
+            </div>
 
             </div>
         {% endfor %}
         </div>
     {% else %}
-        <li>
-            <a class="nav-link" href="{% url 'login' %}">Login <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="{% url 'register' %}">Register <span class="sr-only">(current)</span></a>
-        </li>
+        <div class="container">
+        <br>
+        <h1>Register Or Log In To Use Twizzle!</h1>
+        <br>
+        <a href="{% url 'login' %}" class="btn btn-primary" role="button" aria-pressed="true">Login</a>
+        <a href="{% url 'register' %}" class="btn btn-primary" role="button" aria-pressed="true">Register</a>
+
+
+        <h3>What is Twizzle?</h3>
+        <p class="text-monospace" class="text-wrap">Twizzle is a to-do app, where you can create boards and items! Have different boards for different projects, and manage your tasks effectively!</p>
+        </div>
+
     {% endif %}
 {% endblock content %}

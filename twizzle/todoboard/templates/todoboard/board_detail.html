@@ -2,14 +2,15 @@
 {% block content %}
     <div class="container">
         {% if boards.author == user %}
+            <br>
             <h2>{{ boards.title }}</h2>
-            <h2>Delete this board</h2>
-            <form>
-             <a href="{% url 'board-delete' boards.id %}">Delete</a>
-            </form>
+
+
+
             <br>
             <form action="create-item/" method="post">
                 {% csrf_token %}
+
                 <h2>Create an item</h2>
                 <input class="form-control" type="text" placeholder="Title" name="title">
                 <label for="exampleFormControlTextarea1">Content (optional)</label>
@@ -18,10 +19,13 @@
                 <button type="submit" class="btn btn-success float-right">Create</button>
             </form>
             <br>
+            <h1>Items:</h1>
 
             {% for item in items %}
+
                 <div class="row shadow-sm">
                     <div class="col">
+
                         <h2>{{ item.title }}</h2>
                         <p>{{ item.content }}</p>
                     </div>
@@ -31,11 +35,13 @@
                             <button type="submit" class="btn btn-danger float-right">Delete Item</button>
                         </form>
 
-
                     </div>
 
                 </div>
             {% endfor %}
+            <br>
+            <h6>Delete this board</h6>
+            <a href="{% url 'board-delete' boards.id %}" class="btn btn-danger" role="button" aria-pressed="true">Delete</a>
             </div>
 
         {% else %}
