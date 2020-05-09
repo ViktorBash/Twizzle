@@ -54,8 +54,7 @@ class BoardDetail(DetailView, LoginRequiredMixin):
         context['items'] = Items.objects.filter(board=specific_board)
         shared_user_info = Shared_User.objects.filter(board=specific_board)
         context['shared_users'] = shared_user_info
-        # print(context['shared_users'])
-        # print(context)
+
         return context
 
 
@@ -68,8 +67,18 @@ def delete_item(request, pk, itempk):
 
 def create_board(request):
     title = request.POST['title']
-    created_board = Board.objects.create(title=title, author=request.user)
-    return HttpResponseRedirect("/")
+    if title == "":  # Forces user to add a title to their board
+        messages.info(request, "Add a title to your board first")
+        return redirect("/")
+    try:  # See if the user has a board with the same title
+        Board.objects.get(title=title, author=request.user)
+        messages.info(request, "A board with this title already exists.")
+        return redirect("/")
+    except:  # The name is original, so the board is created
+        created_board = Board.objects.create(title=title, author=request.user)
+
+    return_link = "/board/" + str(created_board.pk) + "/"
+    return redirect(return_link)
 
 
 def create_item(request, pk):
