@@ -13,5 +13,6 @@ urlpatterns = [
     path('board/<int:pk>/add-user/', views.BoardAddUser, name='add-user'),
     path('board/<int:pk>/add-user-email/', views.BoardAddUserEmail, name='add-user-email'),
     path('board/<int:pk>/remove-user/<int:userpk>/', views.BoardRemoveUser, name='remove-user'),
+    path('board/<int:pk>/rename/', views.BoardRename, name='board-rename'),
 
 ]

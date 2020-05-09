@@ -1,5 +1,20 @@
 <br>
-<h1>{{ boards.title }}</h1>
+
+{% if user == boards.author %}
+<div class="row form-inline">
+    <div class="col form-inline">
+        <h1 style="margin-right: 20px;">{{ boards.title }}</h1>
+        <form class="form-inline" action="rename/" method="post">
+            {% csrf_token %}
+            <input class="form-control" type="text" placeholder="Name" name="board_title">
+            <button type="submit" class="btn btn-primary">Rename</button>
+        </form>
+    </div>
+</div>
+{% else %}
+    <h1>{{ boards.title }}</h1>
+{% endif %}
+
 <div class="row shadow-sm">
     <div class="col">
         <h3>Owner: {{ boards.author }}, Email: <a

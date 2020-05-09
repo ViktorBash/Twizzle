@@ -147,3 +147,28 @@ def BoardRemoveUser(request, pk, userpk):
     return_link = "/board/" + str(pk) + "/"
 
     return redirect(return_link)
+
+
+def BoardRename(request, pk):
+    board_title = request.POST['board_title']
+    if board_title == "":
+        messages.info(request, "Your new board title can't be blank")
+        return_link = '/board/' + str(pk) + '/'
+        return redirect(return_link)
+
+    board_to_rename = Board.objects.get(pk=pk)
+    try:
+        board_with_same_title = Board.objects.get(title=board_title, author=request.user)
+        messages.info(request, "One of your boards already has that title")
+    except:
+
+        board_to_rename.title = board_title
+        board_to_rename.save()
+
+    return_link = "/board/" + str(pk) + "/"
+    return redirect(return_link)
+
+
+
+    return_link = "/board/" + str(pk) + "/"
+    return redirect(return_link)

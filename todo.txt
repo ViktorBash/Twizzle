@@ -1,6 +1,5 @@
 ToDo:
 
-- Give alert when creating board with no title
 - rename a board
 
 Advanced:

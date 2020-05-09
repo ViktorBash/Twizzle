@@ -2,6 +2,7 @@
 {% block content %}
     <div class="container">
         {% if boards.author == user %} <!-- If owner, show the add user button -->
+            <h3>Share your board!</h3>
             <div class="row">
                 <div class="col">
                     <form action="add-user/" method="post">
