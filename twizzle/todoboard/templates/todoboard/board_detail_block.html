@@ -50,7 +50,9 @@
         <div class="col">
 
             <h2>{{ item.title }}</h2>
-            <p>{{ item.content }}</p>
+            <p style="font-size: 20px;">{{ item.content }}</p>
+            <p>By: {{ item.author.username }}, Created: {{ item.date_posted }}</p>
+
         </div>
         <div class="col">
             <form action="delete-item/{{ item.id }}/" method="post">

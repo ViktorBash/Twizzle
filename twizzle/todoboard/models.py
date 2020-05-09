@@ -15,6 +15,7 @@ class Items(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField(default="")
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    date_posted = models.DateTimeField(default=timezone.now)
 
 
 class Shared_User(models.Model):
