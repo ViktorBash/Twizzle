@@ -1,8 +1,7 @@
 ToDo:
 
-- Give alert when creating board with no title
-- Reformat with Bootstrap the shared users to look nice and in it's own div/row
 - Show when items were created and who created them
+- Give alert when creating board with no title
 
 
 Advanced:

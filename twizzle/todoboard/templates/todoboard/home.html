@@ -45,7 +45,8 @@
          {% for shared_user in shared_users %}
         <div class="row shadow-sm">
                 <div class="col">
-                    <h3>{{ shared_user.board.title }}</h3>
+                    <h3>Name:{{ shared_user.board.title }} </h3>
+                    <h5>Owner: {{ shared_user.board.author }}</h5>
                 </div>
                 <div class="col">
 
