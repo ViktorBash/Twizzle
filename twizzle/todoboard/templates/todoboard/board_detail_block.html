@@ -1,19 +1,33 @@
 <br>
-<h2>{{ boards.title }}</h2>
-<h2>Owner: {{ boards.author }} Email: <a
-        href="mailto:{{ boards.author.email }}"> {{ boards.author.email }}</a></h2>
-<h2>Shared Users:</h2>
-{% for shared_user in shared_users %}
+<h1>{{ boards.title }}</h1>
+<div class="row shadow-sm">
+    <div class="col">
+        <h3>Owner: {{ boards.author }}, Email: <a
+                href="mailto:{{ boards.author.email }}"> {{ boards.author.email }}</a>
+        </h3>
+    </div>
+</div>
+<hr>
+<h3>Shared Users:</h3>
 
-    <h4>Username: {{ shared_user.shared_author.username }}, Email: <a
-            href="mailto:{{ shared_user.shared_author.email }}"> {{ shared_user.shared_author.email }}</a>
-    </h4>
-    {% if user == boards.author %}
-        <form action="remove-user/{{ shared_user.id }}/" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Remove</button>
-        </form>
-    {% endif %}
+{% for shared_user in shared_users %}
+    <div class="row shadow-sm">
+
+        <div class="col">
+            <h4>Username: {{ shared_user.shared_author.username }}, Email: <a
+                    href="mailto:{{ shared_user.shared_author.email }}"> {{ shared_user.shared_author.email }}</a>
+            </h4>
+            {% if user == boards.author %}
+                </div>
+                <div class="col">
+                <form action="remove-user/{{ shared_user.id }}/" method="post" class="float-right">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Remove</button>
+                </form>
+            {% endif %}
+            </div>
+    </div>
+    <br>
 {% endfor %}
 
 <br>
