@@ -161,14 +161,10 @@ def BoardRename(request, pk):
         board_with_same_title = Board.objects.get(title=board_title, author=request.user)
         messages.info(request, "One of your boards already has that title")
     except:
-
         board_to_rename.title = board_title
         board_to_rename.save()
+        messages.info(request, "Board name saved!")
 
     return_link = "/board/" + str(pk) + "/"
     return redirect(return_link)
 
-
-
-    return_link = "/board/" + str(pk) + "/"
-    return redirect(return_link)
