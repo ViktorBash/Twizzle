@@ -12,5 +12,6 @@ urlpatterns = [
     path('board/<int:pk>/create-item/', views.create_item, name='create-item'),
     path('board/<int:pk>/add-user/', views.BoardAddUser, name='add-user'),
     path('board/<int:pk>/add-user-email/', views.BoardAddUserEmail, name='add-user-email'),
+    path('board/<int:pk>/remove-user/<int:userpk>/', views.BoardRemoveUser, name='remove-user'),
 
 ]

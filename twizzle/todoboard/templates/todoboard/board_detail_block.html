@@ -4,9 +4,16 @@
         href="mailto:{{ boards.author.email }}"> {{ boards.author.email }}</a></h2>
 <h2>Shared Users:</h2>
 {% for shared_user in shared_users %}
+
     <h4>Username: {{ shared_user.shared_author.username }}, Email: <a
             href="mailto:{{ shared_user.shared_author.email }}"> {{ shared_user.shared_author.email }}</a>
     </h4>
+    {% if user == boards.author %}
+        <form action="remove-user/{{ shared_user.id }}/" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Remove</button>
+        </form>
+    {% endif %}
 {% endfor %}
 
 <br>

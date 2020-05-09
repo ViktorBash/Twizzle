@@ -94,7 +94,6 @@ class BoardDelete(LoginRequiredMixin, DeleteView, UserPassesTestMixin):
 
 
 def BoardAddUser(request, pk):
-    print("add by username")
     shared_user = request.POST['shared_user']
 
     # This try/except block is for adding users only if the user exists or is not shared to the board already
@@ -118,7 +117,6 @@ def BoardAddUser(request, pk):
 
 
 def BoardAddUserEmail(request, pk):
-    print("Add by email")
     shared_user_email = request.POST['shared_user_email']
     try:  # Try to get the user
         user_to_share = User.objects.get(email=shared_user_email)
@@ -132,4 +130,11 @@ def BoardAddUserEmail(request, pk):
         messages.info(request, "User doesn't exist")
 
     return_link = "/board/" + str(pk) + "/"
+    return redirect(return_link)
+
+
+def BoardRemoveUser(request, pk, userpk):
+    Shared_User.objects.get(pk=userpk).delete()
+    return_link = "/board/" + str(pk) + "/"
+
     return redirect(return_link)
