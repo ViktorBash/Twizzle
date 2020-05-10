@@ -1,7 +1,3 @@
 ToDo:
 
-- rename a board
-
-Advanced:
-- Make a toggle button for the owner of a board when adding a user to either send the user an email or not that they
-got added
+-
