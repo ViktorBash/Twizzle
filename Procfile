@@ -1,1 +1,1 @@
-web: gunicorn Twizzle.wsgi
+web: gunicorn twizzle.wsgi
